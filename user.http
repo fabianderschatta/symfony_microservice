@@ -1,0 +1,11 @@
+### GET request to example server
+POST https://localhost:8000/register
+Content-Type: application/json
+
+{
+    "email" : "fabian@derschatta.de",
+    "first_name" : "Fabian",
+    "last_name" : "Derschatta",
+    "password" : "12345.Fab#$ian"
+}
+###
