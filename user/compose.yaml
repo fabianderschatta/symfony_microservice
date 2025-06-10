@@ -1,20 +1,36 @@
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+  php:
+    image: dunglas/frankenphp
+    build:
+      context: docker/php
+    restart: always
+    ports:
+      - "80:80" # HTTP
+      - "443:443" # HTTPS
+      - "443:443/udp" # HTTP/3
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
+      - caddy_data:/data
+      - caddy_config:/config
+      - .:/app
+
+  database:
+    image: mysql:8.4
+    restart: always
+    environment:
+      MYSQL_USER: "app"
+      MYSQL_PASSWORD: "!ChangeMe!"
+      MYSQL_DATABASE: "app"
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+#      - database_data:/var/lib/mysql:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+       - ./docker/db/data:/var/lib/mysql:rw
+    tty: true
 
 volumes:
-###> doctrine/doctrine-bundle ###
   database_data:
-###< doctrine/doctrine-bundle ###
+  caddy_data:
+  caddy_config:
