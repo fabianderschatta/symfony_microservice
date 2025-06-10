@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegisterController extends AbstractController
 {
-    #[Route('/register', name: 'user_register', methods: ['POST'], format: 'json')]
+    #[Route('/api/register', name: 'user_register', methods: ['POST'], format: 'json')]
     public function register(
         UserRegisterValidator $userRegisterValidator,
         RegisterService $registerService,
