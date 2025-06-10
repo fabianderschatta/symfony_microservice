@@ -1,5 +1,5 @@
-### GET request to example server
-POST https://localhost:8000/register
+### Register a new user
+POST https://localhost:8000/api/register
 Content-Type: application/json
 
 {
@@ -8,4 +8,17 @@ Content-Type: application/json
     "last_name" : "Derschatta",
     "password" : "12345.Fab#$ian"
 }
+###
+### Log user in
+POST https://localhost:8000/api/login_check
+Content-Type: application/json
+
+{
+    "username": "fabian@derschatta.de",
+    "password" : "12345.Fab#$ian"
+}
+###
+### Get all users
+GET https://localhost:8000/api/users
+Authorization: Bearer [token]
 ###
