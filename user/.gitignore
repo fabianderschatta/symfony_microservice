@@ -18,5 +18,4 @@
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 
-/docker/db
-/certs/
+/docker/db/
