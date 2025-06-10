@@ -4,7 +4,6 @@ namespace App\Tests\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Service\RegisterService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -47,7 +46,7 @@ class RegisterControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/register',
+            '/api/register',
             server: ['CONTENT_TYPE' => 'application/json'],
             content: json_encode($content),
         );
@@ -98,7 +97,7 @@ class RegisterControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/register',
+            '/api/register',
             server: ['CONTENT_TYPE' => 'application/json'],
             content: json_encode($content),
         );
