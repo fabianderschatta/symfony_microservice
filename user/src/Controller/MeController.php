@@ -2,19 +2,21 @@
 
 namespace App\Controller;
 
+use App\Model\UserDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class InfoController extends AbstractController
+class MeController extends AbstractController
 {
-    #[Route('/api/users', name: 'get_all_users', methods: ['GET'], format: 'json')]
+    #[Route('/api/user/me', name: 'get_current_user', methods: ['GET'], format: 'json')]
     #[IsGranted('ROLE_USER')]
     public function getAllUsers(): JsonResponse
     {
-        $users = [];
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
 
-        return $this->json($users);
+        return $this->json(UserDto::fromEntity($user));
     }
 }

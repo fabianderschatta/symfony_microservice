@@ -22,3 +22,7 @@ Content-Type: application/json
 GET https://localhost:8000/api/users
 Authorization: Bearer [token]
 ###
+### Get current users
+GET https://localhost:8000/api/user/me
+Authorization: Bearer [token]
+###
