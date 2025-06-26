@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserRepositoryTest extends TestCase
 {
-    public function testSomething(): void
+    public function testGetPaginatedUsers(): void
     {
         $this->assertTrue(true);
     }
