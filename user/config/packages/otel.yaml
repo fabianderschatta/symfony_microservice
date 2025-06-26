@@ -1,0 +1,11 @@
+otel_sdk:
+    resource:
+        attributes:
+            service.name: 'your-service-name'
+    trace:
+        sampler: 'always_on'
+        span:
+            processors: batch
+        exporters:
+            - jaeger+http://jaeger:9412/api/v2/spans
+            - zipkin+http://zipkin:9411/api/v2/spans
