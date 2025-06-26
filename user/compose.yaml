@@ -4,13 +4,13 @@ services:
     image: dunglas/frankenphp
     build:
       context: docker/php
-    restart: always
+#    restart: always
     ports:
       - "80:80" # HTTP
-      - "443:443" # HTTPS
-      - "443:443/udp" # HTTP/3
-    environment:
-      CADDY_SERVER_EXTRA_DIRECTIVES: "tls /etc/app/certs/localhost.pem /etc/app/certs/localhost-key.pem"
+      - "8000:443" # HTTPS
+#      - "443:443/udp" # HTTP/3
+#    environment:
+#      CADDY_SERVER_EXTRA_DIRECTIVES: "tls /etc/app/certs/localhost.pem /etc/app/certs/localhost-key.pem"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -20,7 +20,7 @@ services:
 
   database:
     image: mysql:8.4
-    restart: always
+#    restart: always
     environment:
       MYSQL_USER: "app"
       MYSQL_PASSWORD: "!ChangeMe!"
@@ -31,6 +31,19 @@ services:
     volumes:
        - ./docker/db/data:/var/lib/mysql:rw
     tty: true
+
+  zipkin:
+    image: openzipkin/zipkin-slim
+    ports:
+      - 9411:9411
+      -
+  jaeger:
+    image: jaegertracing/all-in-one
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: 9412
+    ports:
+      - 9412:9412
+      - 16686:16686
 
 volumes:
   database_data:
